@@ -5,21 +5,20 @@ module.exports = {
     mobileFirst: false, 
     container: {
         maxWidth: '1200px', 
-        fields: '30px' 
+        fields: '15px' 
     },
     breakPoints: {
         lg: {
-            width: '1100px', 
+            width: '1200px' 
         },
         md: {
-            width: '960px'
+            width: '992px'
         },
         sm: {
-            width: '780px',
-            fields: '15px' 
+            width: '768px'              
         },
         xs: {
-            width: '560px'
+            width: '576px'
         }
     }    
 };

@@ -4,6 +4,11 @@
 @import 'vars';
 @import 'global';
 
+//  blocks
+@import 'blocks/header';
+@import 'blocks/footer';
+
+
 .debugGrid {
     // @include debug(rgba(0,0,0,0.4), 1px solid #ff0)
 }

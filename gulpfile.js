@@ -9,20 +9,23 @@ let path = {
         css: project_folder + "/css/",
         js: project_folder + "/js/",
         img: project_folder + "/images/",
-        fonts: project_folder + "/fonts/"
+        fonts: project_folder + "/fonts/",
+        sprite: project_folder + "/sprite",  
     },
     src: {
         html: [source_folder + "/*.html", "!"+source_folder + "/_*.html"],
         css: source_folder + "/scss/style.scss",
         js: source_folder + "/js/main.js",
         img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
-        fonts: source_folder + "/fonts/*.ttf"        
+        fonts: source_folder + "/fonts/*.ttf",
+        sprite: source_folder + "/sprite.svg",      
     },
     watch: {
         html: source_folder + "/**/*.html",
         css: source_folder + "/scss/**/*.+{scss,css}",
         js: source_folder + "/js/**/*.js",
-        img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}" ,
+        img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
+        sprite: source_folder + "/sprite.svg",   
         grid: source_folder + "/smartgrid.js"     
     },
     clean: "./" + project_folder + "/"
@@ -49,6 +52,7 @@ let { src, dest } = require("gulp"),
     ttf2woff2 = require("gulp-ttf2woff2"),
     fonter = require("gulp-fonter"),
     concat = require("gulp-concat"),
+    sourcemaps = require('gulp-sourcemaps')
     smartgrid = require('smart-grid');
 
 let fs = require('fs');
@@ -96,7 +100,8 @@ function html() {
 }
 
 function css() {
-    return src(path.src.css)       
+    return src(path.src.css)   
+        .pipe(sourcemaps.init())    
         .pipe(
             scss({
                outputStyle: "expanded"
@@ -119,6 +124,7 @@ function css() {
                 extname: ".min.css"
             })
         )
+        .pipe(sourcemaps.write())
         .pipe(dest(path.build.css))
         .pipe(browsersync.stream());
 }
@@ -156,6 +162,13 @@ function images() {
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream());
 }
+
+function sprite() {
+    return src(path.src.sprite)
+        .pipe(dest(path.build.sprite))
+        .pipe(browsersync.stream());
+}
+
 
 function fonts(params) {
     src(path.src.fonts)
@@ -220,6 +233,7 @@ function watchFiles(params) {
     gulp.watch([path.watch.js], js);
     gulp.watch([path.watch.img], images);
     gulp.watch([path.watch.grid], grid);
+    gulp.watch([path.watch.sprite], sprite);
 }
 
 function clean() {
@@ -236,9 +250,10 @@ function grid(done){
 
 gulp.task('grid',grid)
 
-let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts, style, script, grid), fontsStyle);
+let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts, style, script, grid, sprite), fontsStyle);
 let watch = gulp.parallel( build, watchFiles, browserSync);
 
+exports.sprite = sprite;
 exports.grid = grid;
 exports.style = style;
 exports.script = script;

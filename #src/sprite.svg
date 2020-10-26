@@ -1,11 +1,10 @@
-<svg display="none" xmlns='http://www.w3.org/2000/svg'>
-    <symbol id="burger" viewBox='0 0 512 512'>
-       <path stroke-linecap='round' stroke-miterlimit='10' stroke-width='50' d='M80 160h352M80 256h352M80 352h352'/>
-    </symbol>
-    
-    <symbol id="cross" viewBox="0 0 123.05 123.05">
-        <path d="M121.325,10.925l-8.5-8.399c-2.3-2.3-6.1-2.3-8.5,0l-42.4,42.399L18.726,1.726c-2.301-2.301-6.101-2.301-8.5,0l-8.5,8.5
-		c-2.301,2.3-2.301,6.1,0,8.5l43.1,43.1l-42.3,42.5c-2.3,2.3-2.3,6.1,0,8.5l8.5,8.5c2.3,2.3,6.1,2.3,8.5,0l42.399-42.4l42.4,42.4
-		c2.3,2.3,6.1,2.3,8.5,0l8.5-8.5c2.3-2.3,2.3-6.1,0-8.5l-42.5-42.4l42.4-42.399C123.625,17.125,123.625,13.325,121.325,10.925z"/>
+<svg display="none" xmlns='http://www.w3.org/2000/svg'>    
+    <symbol id="heart" viewBox='0 0 512 512'>
+        <path d='M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0018 0c96.26-65.34 184.09-143.09 183-252.42-.54-52.67-42.32-96.81-95.08-96.81z' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='20'/>
     </symbol>
 </svg>
+
+<!-- to html -->
+<!-- <svg class="icon-heart">
+    <use href="images/symbols/sprite.svg#heart" aria-label="heart"></use>                    
+</svg> -->

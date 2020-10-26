@@ -1,14 +1,26 @@
 @import 'smart-grid.scss';
-@import 'mixin';
-@import 'fonts';
-@import 'vars';
 @import 'global';
+@import 'mixins';
+@import 'var';
+@import 'form';
 
-//  blocks
+.debugGrid {
+  // @include debug(rgba(0,0,0,0.4), 1px solid #ff0)
+}
+
+// ШРИФТЫ =========================================================
+// &subset=cyrillic-ext
+@import 'fonts';
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:regular,700&subset=cyrillic-ext);
+
+// БЛОКИ ==========================================================
 @import 'blocks/header';
 @import 'blocks/footer';
 
+// ОСНОВНОЙ БЛОК ==================================================
 
-.debugGrid {
-    // @include debug(rgba(0,0,0,0.4), 1px solid #ff0)
+.logo {
+  color: #fff;
+  font-size: 30px;
 }
+

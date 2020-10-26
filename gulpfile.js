@@ -10,12 +10,12 @@ let path = {
         js: project_folder + "/js/",
         img: project_folder + "/images/",
         fonts: project_folder + "/fonts/",
-        sprite: project_folder + "/sprite",  
+        sprite: project_folder + "/images/symbols",          
     },
     src: {
         html: [source_folder + "/*.html", "!"+source_folder + "/_*.html"],
-        css: source_folder + "/scss/style.scss",
-        js: source_folder + "/js/main.js",
+        css: source_folder + "/scss/style.scss",       
+        js: source_folder + "/js/*.js",
         img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
         fonts: source_folder + "/fonts/*.ttf",
         sprite: source_folder + "/sprite.svg",      
@@ -52,8 +52,8 @@ let { src, dest } = require("gulp"),
     ttf2woff2 = require("gulp-ttf2woff2"),
     fonter = require("gulp-fonter"),
     concat = require("gulp-concat"),
-    sourcemaps = require('gulp-sourcemaps')
     smartgrid = require('smart-grid');
+    // sourcemaps = require('gulp-sourcemaps'),
 
 let fs = require('fs');
 
@@ -61,6 +61,7 @@ function style(params) {
     return gulp
     .src([        
         "node_modules/normalize.css/normalize.css",
+        // "node_modules/air-datepicker/dist/css/datepicker.min.css"
     ])    
     .pipe(concat("libs.min.css")) 
     .pipe(clean_css())   
@@ -71,9 +72,12 @@ function script(params) {
     return gulp
        .src([
           "node_modules/jquery/dist/jquery.js",
-          "node_modules/focus-visible/dist/focus-visible.min.js",            
+          "node_modules/focus-visible/dist/focus-visible.min.js", 
+        //   "node_modules/air-datepicker/dist/js/datepicker.min.js"           
        ]) 
-       .pipe(babel())
+       .pipe(babel({
+           "plugins": ["@babel/plugin-proposal-class-properties"]
+       }))
        .pipe(
             uglify()
         )
@@ -101,7 +105,7 @@ function html() {
 
 function css() {
     return src(path.src.css)   
-        .pipe(sourcemaps.init())    
+        // .pipe(sourcemaps.init())  
         .pipe(
             scss({
                outputStyle: "expanded"
@@ -124,16 +128,20 @@ function css() {
                 extname: ".min.css"
             })
         )
-        .pipe(sourcemaps.write())
+        // .pipe(sourcemaps.write('./'))  
         .pipe(dest(path.build.css))
         .pipe(browsersync.stream());
 }
 
 function js() {
     return src(path.src.js)        
-        .pipe(fileinclude())
-        .pipe(babel())
+        // .pipe(fileinclude())
+        .pipe(babel({
+            "plugins": ["@babel/plugin-proposal-class-properties"]
+        }))
+        .pipe(concat("main.js"))
         .pipe(dest(path.build.js))
+
         .pipe(
             uglify()
         )
@@ -141,7 +149,7 @@ function js() {
             rename({
                 extname: ".min.js"
             })
-        )
+        )     
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream());
 }

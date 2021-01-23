@@ -1,0 +1,15 @@
+.pagination {
+    display: flex;
+
+    &__item {
+        margin-right: 10px;
+
+        &--current {
+            color: #66758c;
+        }
+    }
+
+    &__link {
+        color: inherit;
+    }
+}

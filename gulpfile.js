@@ -8,25 +8,26 @@ let path = {
         html: project_folder + "/",
         css: project_folder + "/css/",
         js: project_folder + "/js/",
-        img: project_folder + "/images/",
+        img: project_folder + "/img/",
         fonts: project_folder + "/fonts/",
-        sprite: project_folder + "/images/symbols",          
+        sprite: project_folder + "/img/symbols",
     },
     src: {
-        html: [source_folder + "/*.html", "!"+source_folder + "/_*.html"],
-        css: source_folder + "/scss/style.scss",       
+        html: [source_folder + "/*.html", "!" + source_folder + "/_*.html"],
+        css: source_folder + "/scss/style.scss",
         js: source_folder + "/js/*.js",
-        img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
+        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
         fonts: source_folder + "/fonts/*.ttf",
-        sprite: source_folder + "/sprite.svg",      
+        sprite: source_folder + "/sprite.svg",
+        lintCss: [source_folder + "/scss/**/*.scss", "!" + source_folder + "/scss/base/*.scss"],     
     },
     watch: {
         html: source_folder + "/**/*.html",
-        css: source_folder + "/scss/**/*.+{scss,css}",
+        css: source_folder + "/**/*.+{scss,css}",
         js: source_folder + "/js/**/*.js",
-        img: source_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
-        sprite: source_folder + "/sprite.svg",   
-        grid: source_folder + "/smartgrid.js"     
+        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+        sprite: source_folder + "/sprite.svg",
+        grid: source_folder + "/smartgrid.js"
     },
     clean: "./" + project_folder + "/"
 };
@@ -44,45 +45,51 @@ let { src, dest } = require("gulp"),
     uglify = require("gulp-uglify-es").default,
     babel = require("gulp-babel"),
     imagemin = require("gulp-imagemin"),
-    webp = require("gulp-webp"),
-    webphtml = require("gulp-webp-html"),
-    webpcss = require("gulp-webpcss"),
+    // webp = require("gulp-webp"),
+    // webphtml = require("gulp-webp-html"),
+    // webpcss = require("gulp-webpcss"),
     svgSprite = require("gulp-svg-sprite"),
     ttf2woff = require("gulp-ttf2woff"),
     ttf2woff2 = require("gulp-ttf2woff2"),
     fonter = require("gulp-fonter"),
     concat = require("gulp-concat"),
-    smartgrid = require('smart-grid');
-    // sourcemaps = require('gulp-sourcemaps'),
+    smartgrid = require('smart-grid'),
+    gulpStylelint = require('gulp-stylelint');
+// sourcemaps = require('gulp-sourcemaps'),
 
 let fs = require('fs');
 
 function style(params) {
     return gulp
-    .src([        
-        "node_modules/normalize.css/normalize.css",
-        // "node_modules/air-datepicker/dist/css/datepicker.min.css"
-    ])    
-    .pipe(concat("libs.min.css")) 
-    .pipe(clean_css())   
-    .pipe(gulp.dest(project_folder + '/css'))  
+        .src([
+            "node_modules/normalize.css/normalize.css",
+            "node_modules/swiper/swiper-bundle.min.css",
+            // "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css"
+            // "node_modules/air-datepicker/dist/css/datepicker.min.css"
+        ])
+        .pipe(concat("libs.min.css"))
+        .pipe(clean_css())
+        .pipe(gulp.dest(project_folder + '/css'))
 }
 
 function script(params) {
     return gulp
-       .src([
-          "node_modules/jquery/dist/jquery.js",
-          "node_modules/focus-visible/dist/focus-visible.min.js", 
-        //   "node_modules/air-datepicker/dist/js/datepicker.min.js"           
-       ]) 
-       .pipe(babel({
-           "plugins": ["@babel/plugin-proposal-class-properties"]
-       }))
-       .pipe(
+        .src([
+            // "node_modules/jquery/dist/jquery.js",
+            "node_modules/focus-visible/dist/focus-visible.min.js",
+            "node_modules/swiper/swiper-bundle.min.js",
+            // "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"
+            //   "node_modules/air-datepicker/dist/js/datepicker.min.js"           
+        ])
+        .pipe(babel({
+            presets: ["@babel/preset-env"],
+            "plugins": ["@babel/plugin-proposal-class-properties"]
+        }))
+        .pipe(
             uglify()
         )
-       .pipe(concat("libs.min.js"))   
-       .pipe(gulp.dest(project_folder + '/js'))   
+        .pipe(concat("libs.min.js"))
+        .pipe(gulp.dest(project_folder + '/js'))
 }
 
 function browserSync(params) {
@@ -93,34 +100,34 @@ function browserSync(params) {
         port: 3000,
         notify: false
     });
-} 
+}
 
 function html() {
     return src(path.src.html)
         .pipe(fileinclude())
-        .pipe(webphtml())
+        // .pipe(webphtml())
         .pipe(dest(path.build.html))
         .pipe(browsersync.stream());
 }
 
 function css() {
-    return src(path.src.css)   
+    return src(path.src.css)
         // .pipe(sourcemaps.init())  
         .pipe(
             scss({
-               outputStyle: "expanded"
-            }) 
+                outputStyle: "expanded"
+            })
         )
         .pipe(
             group_media()
-        )    
+        )
         .pipe(
             autoprefixer({
                 overrideBrowserslist: ["last 5 versions"],
                 cascade: true
             })
         )
-        .pipe(webpcss({webpClass: '.webp',noWebpClass: '.no-webp'}))    
+        // .pipe(webpcss({ webpClass: '.webp', noWebpClass: '.no-webp' }))
         .pipe(dest(path.build.css))
         .pipe(clean_css())
         .pipe(
@@ -134,9 +141,10 @@ function css() {
 }
 
 function js() {
-    return src(path.src.js)        
+    return src(path.src.js)
         // .pipe(fileinclude())
         .pipe(babel({
+            presets: ["@babel/preset-env"],
             "plugins": ["@babel/plugin-proposal-class-properties"]
         }))
         .pipe(concat("main.js"))
@@ -149,34 +157,43 @@ function js() {
             rename({
                 extname: ".min.js"
             })
-        )     
+        )
         .pipe(dest(path.build.js))
         .pipe(browsersync.stream());
 }
 
 function images() {
-    return src(path.src.img)  
-        .pipe(webp({
-            quality: 70
-        }))
+    return src(path.src.img)
+        // .pipe(webp({
+        //     quality: 80
+        // }))
         .pipe(dest(path.build.img))
         .pipe(src(path.src.img))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{ removeViewBox: false }],
             interlaced: true,
-            optimizationLevel: 3 // 0 to 7
+            optimizationLevel: 5 // 0 to 7
         }))
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream());
 }
+
+function lintCss() {
+    return src(path.src.lintCss)
+        .pipe(gulpStylelint({
+            reporters: [
+                { formatter: 'string', console: true }
+            ]
+        }));
+}
+
 
 function sprite() {
     return src(path.src.sprite)
         .pipe(dest(path.build.sprite))
         .pipe(browsersync.stream());
 }
-
 
 function fonts(params) {
     src(path.src.fonts)
@@ -210,11 +227,10 @@ gulp.task('svgSprite', function () {
         .pipe(dest(path.build.img))
 })
 
-
 function fontsStyle(params) {
-    let file_content = fs.readFileSync(source_folder + '/scss/fonts.scss');
+    let file_content = fs.readFileSync(source_folder + '/scss/base/fonts.scss');
     if (file_content == '') {
-        fs.writeFile(source_folder + '/scss/fonts.scss', '', cb);
+        fs.writeFile(source_folder + '/scss/base/fonts.scss', '', cb);
         return fs.readdir(path.build.fonts, function (err, items) {
             if (items) {
                 let c_fontname;
@@ -222,7 +238,7 @@ function fontsStyle(params) {
                     let fontname = items[i].split('.');
                     fontname = fontname[0];
                     if (c_fontname != fontname) {
-                        fs.appendFile(source_folder + '/scss/fonts.scss', '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', cb);
+                        fs.appendFile(source_folder + '/scss/base/fonts.scss', '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n', cb);
                     }
                     c_fontname = fontname;
                 }
@@ -248,19 +264,21 @@ function clean() {
     return del(path.clean);
 }
 
-function grid(done){
+function grid(done) {
     delete require.cache[require.resolve('./#src/smartgrid.js')];
     let settings = require('./#src/smartgrid.js');
 
-    smartgrid("#src/scss/", settings);
+    smartgrid("#src/scss/base", settings);
     done();
 }
 
-gulp.task('grid',grid)
+gulp.task('grid', grid)
 
 let build = gulp.series(clean, gulp.parallel(js, css, html, images, fonts, style, script, grid, sprite), fontsStyle);
-let watch = gulp.parallel( build, watchFiles, browserSync);
+let watch = gulp.parallel(build, watchFiles, browserSync);
 
+
+exports.lintCss = lintCss;
 exports.sprite = sprite;
 exports.grid = grid;
 exports.style = style;
@@ -274,3 +292,4 @@ exports.html = html;
 exports.build = build;
 exports.watch = watch;
 exports.default = watch;
+

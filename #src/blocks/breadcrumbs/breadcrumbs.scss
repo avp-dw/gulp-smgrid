@@ -1,0 +1,33 @@
+.breadcrumbs {
+    display: flex;
+    margin-bottom: 50px;
+
+    &__item {
+        position: relative;
+        margin-right: 15px;
+        text-transform: uppercase;
+
+        &:not(:first-child) {
+            padding-left: 25px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                background-color: #000;
+                transform: translateY(-50%) rotate(45deg);
+            }
+        }
+
+        &--current {
+            color: #aba9a7;
+        }
+    }
+
+    &__link {
+        color: inherit;
+    }
+}

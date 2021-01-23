@@ -1,11 +1,11 @@
 module.exports = {
     outputStyle: 'scss', 
     columns: 12, 
-    offset: '30px', 
+    offset: '40px', 
     mobileFirst: false, 
     container: {
-        maxWidth: '1200px', 
-        fields: '15px' 
+        maxWidth: '1180px', 
+        fields: '30px' 
     },
     breakPoints: {
         lg: {
@@ -15,7 +15,8 @@ module.exports = {
             width: '992px'
         },
         sm: {
-            width: '768px'              
+            width: '768px',
+            fields: '15px'              
         },
         xs: {
             width: '576px'

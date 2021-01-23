@@ -1,0 +1,148 @@
+@media (max-width: 1600px) {
+    .team-list__item:nth-child(1) {
+        left: 0;
+    }
+    .team-list__item:nth-child(2) {
+        right: 0;
+    }
+    .team-list__item:nth-child(3) {
+        left: 300px;
+    }
+    .team-list__item:nth-child(4) {
+        right: 100px;
+    }
+    .team-list__item:nth-child(5) {
+        left: 50%;
+    }
+}
+@media (max-width: 1400px) {
+    .home {
+        background-size: 460px;
+        background-position: center right 20%;
+    }
+}
+
+@media (max-width: 1270px) {
+    .team-list__item:nth-child(1) {
+        left: 0;
+    }
+    .team-list__item:nth-child(2) {
+        right: 0;
+    }
+    .team-list__item:nth-child(3) {
+        left: 180px;
+    }
+    .team-list__item:nth-child(4) {
+        right: 0px;
+    }
+    .team-list__item:nth-child(5) {
+        left: 50%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .advantages-list {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .design-col:last-child {
+        background-size: 400px;
+        background-position: center right;
+    }
+    .team-list {
+        display: none;
+    }
+    .section.hero {
+        padding-top: 80px;
+        padding-bottom: 30px;
+        min-height: 0;
+    }
+}
+
+@media (max-width: 1000px) {
+    .nav {
+        display: none;
+    }
+    .home {
+        background-position: center right;
+    }
+}
+
+@media (max-width: 920px) {
+    .home {
+        max-width: 460px;
+        margin: 0 auto;
+        background-image: none;
+    }
+    .design-col:last-child {
+        background-size: 320px;
+    }
+}
+@media (max-width: 800px) {
+    .design-col:last-child {
+        display: none;
+    }
+    .design-col:first-child {
+        width: 500%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 25px 0;
+    }
+    .advantages {
+        margin-bottom: 30px;
+    }
+    .design {
+        margin-bottom: 0;
+    }
+    .subtitle {
+        padding-top: 0;
+    }
+    .swiper-slide__title {
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .footer {
+        padding: 25px 0;
+    }
+    .footer__body {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .home__link,
+    .home__btn {
+        display: block;
+        margin: 0 auto;
+        max-width: 175px;
+    }
+    .home__btn {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+    .title {
+        font-size: 28px;
+    }
+    .footer-menu {
+        margin-right: 0;
+        column-gap: 0;
+    }
+    .footer-form__btn {
+        width: 100%;
+    }
+    .footer-form__tel {
+        width: 100%;
+    }
+}

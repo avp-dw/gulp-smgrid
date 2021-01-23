@@ -1,26 +1,414 @@
-@import 'smart-grid.scss';
-@import 'global';
-@import 'mixins';
-@import 'var';
-@import 'form';
+@import "base/smart-grid";
+@import "base/mixins";
+@import "base/global";
+@import "base/fonts";
+@import "base/form";
+@import "base/vars";
 
 .debugGrid {
-  // @include debug(rgba(0,0,0,0.4), 1px solid #ff0)
+    // @include debug(rgba(0,0,0,0.4), 1px solid #ff0)
 }
 
-// ШРИФТЫ =========================================================
-// &subset=cyrillic-ext
-@import 'fonts';
-@import url(https://fonts.googleapis.com/css?family=PT+Sans:regular,700&subset=cyrillic-ext);
-
 // БЛОКИ ==========================================================
-@import 'blocks/header';
-@import 'blocks/footer';
+@import "../blocks/header/header.scss";
+@import "../blocks/footer/footer.scss";
 
 // ОСНОВНОЙ БЛОК ==================================================
 
-.logo {
-  color: #fff;
-  font-size: 30px;
+.home {
+    padding: 100px 0;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-image: url(../img/home-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: top left 68%;
+
+    &__title {
+        max-width: 400px;
+        margin-bottom: 30px;
+    }
+
+    &__text {
+        max-width: 400px;
+        margin-bottom: 45px;
+    }
+
+    &__btn {
+        margin-right: 30px;
+        margin-bottom: 30px;
+        cursor: pointer;
+    }
+
+    &__link {
+        position: relative;
+        padding-left: 28px;
+        color: #ff9900;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 17px;
+            height: 19px;
+            background-image: url(../img/Triangle.svg);
+        }
+    }
 }
 
+// start advantages
+.advantages {
+    padding: 50px 0;
+    margin-bottom: 120px;
+    background-image: url(../img/advantages/advantages-bg.png);
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+
+    &__title {
+        max-width: 530px;
+        margin: 0 auto 45px;
+        text-align: center;
+    }
+
+    &__link {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.advantages-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+
+    &__item {
+        max-width: 240px;
+    }
+
+    &__sign {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        margin-bottom: 30px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: 19px;
+
+        &--purple {
+            background-color: #7752be;
+            background-image: url(../img/advantages/01.svg);
+        }
+
+        &--yellow {
+            background-color: #fab005;
+            background-image: url(../img/advantages/02.svg);
+        }
+
+        &--red {
+            background-color: #f03e3d;
+            background-image: url(../img/advantages/03.svg);
+        }
+
+        &--blue {
+            background-color: #4dadf7;
+            background-image: url(../img/advantages/04.svg);
+        }
+    }
+
+    &__title {
+        margin-bottom: 13px;
+        font-family: "Poppins-SemiBold", sans-serif;
+    }
+
+    &__text {
+    }
+}
+
+// start design
+.design {
+    margin-bottom: 100px;
+
+    &__title {
+        margin-bottom: 20px;
+    }
+
+    &__text {
+        max-width: 480px;
+        margin-bottom: 30px;
+    }
+}
+
+.subtitle {
+    padding-top: 25px;
+    margin-bottom: 3px;
+}
+
+.design-list {
+    max-width: 480px;
+
+    &__item {
+    }
+
+    &__title {
+        margin-bottom: 10px;
+        font-family: "Poppins-Bold", sans-serif;
+        color: #2f281e;
+    }
+
+    &__text {
+    }
+}
+
+.design-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.design-col {
+    min-height: 535px;
+    padding: 10px 0;
+
+    &:first-child {
+        max-width: 480px;        
+    }
+
+    &:last-child {
+        // width: 540px;
+        width: 50%;
+        background-image: url(../img/design-bg.jpg);
+        background-repeat: no-repeat;
+        background-position: top;
+    }
+}
+
+.marketers.design {
+    .design-col {
+        &:last-child {
+            background-image: url(../img/marketers-bg.jpg);
+        }
+    }
+}
+
+.managers.design {
+    .design-list__item {
+        position: relative;
+        padding-left: 65px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 35px;
+            height: 35px;
+            background-image: url(../img/arrow.svg);
+            background-repeat: no-repeat;
+            transform: translateY(-50%);
+        }
+    }
+
+    .design-col {
+        &:last-child {
+            order: -1;
+            margin-right: 30px;
+            background-image: url(../img/manager-bg.jpg);
+        }
+    }
+
+    .design-list__item {
+        margin-bottom: 30px;
+    }
+}
+
+// start hero
+.hero {
+    position: relative;
+    padding-top: 230px;
+    padding-bottom: 244px;
+    min-height: 835px;
+    text-align: center;
+    background-image: url(../img/hero.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+
+    &__title {
+        margin-bottom: 22px;
+    }
+
+    &__text {
+        max-width: 540px;
+        margin: 0 auto;
+        margin-bottom: 45px;
+        color: #567592;
+    }
+
+    &__btn {
+    }
+}
+
+.team-list {
+    &__item {
+        position: absolute;
+
+        &:nth-child(1) {
+            top: 220px;
+            left: 300px;
+        }
+
+        &:nth-child(2) {
+            top: 150px;
+            right: 400px;
+            .team-list__text {
+                top: -165px;
+                left: -150px;
+            }
+        }
+
+        &:nth-child(3) {
+            top: 500px;
+            left: 500px;
+            .team-list__text {
+                top: -165px;
+                left: -125px;
+            }
+        }
+
+        &:nth-child(4) {
+            top: 480px;
+            right: 300px;
+            .team-list__text {
+                top: -165px;
+                left: -130px;
+            }
+        }
+
+        &:nth-child(5) {
+            top: 610px;
+            left: 930px;
+            .team-list__text {
+                top: -168px;
+                left: -168px;
+            }
+        }
+    }
+
+    &__photo {
+        width: 98px;
+        height: 98px;
+        overflow: hidden;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &__text {
+        position: relative;
+        padding: 15px 25px;
+        background-color: #fff;
+        border-radius: 26.5px;
+        box-shadow: 0 2px 15px rgba(23, 58, 86, 0.1);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 45px;
+            right: 35px;
+            width: 17px;
+            height: 17px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: 25px;
+            top: 62px;
+            width: 9px;
+            height: 9px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 15px rgba(23, 58, 86, 0.1);
+        }
+    }
+
+    &__text--direction {
+        top: -165px;
+        left: 150px;
+        &::before {
+            top: 45px;
+            left: 21px;
+        }
+
+        &::after {
+            top: 60px;
+            left: 10px;
+        }
+    }
+}
+
+.swiper-container {
+    // margin-bottom: 120px;
+}
+
+.swiper-slide {
+    width: 33.33%;
+    margin-bottom: 84px;
+
+    &__img {
+        margin-bottom: 25px;
+
+        img {
+            display: block;
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            object-fit: cover;
+        }
+    }
+
+    &__author {
+        margin-bottom: 12px;
+        color: #544837;
+
+        span {
+            font-family: "Poppins-Bold", sans-serif;
+        }
+
+        time {
+            position: relative;
+            padding-left: 10px;
+            margin-left: 10px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                height: 18px;
+                width: 2px;
+                background-color: #544837;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    &__title {
+        font-size: 24px;
+        line-height: 34px;
+    }
+}
+
+.swiper-pagination-bullet {
+    width: 16px;
+    height: 16px;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    width: 16px;
+    height: 16px;
+    background-color: #ff9900;
+}
+
+@import "base/media";

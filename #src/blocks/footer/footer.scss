@@ -1,0 +1,46 @@
+.footer {
+    padding: 100px 0;
+
+    &__logo {
+    }
+
+    &__body {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.footer-menu {
+    column-count: 2;
+    margin-right: 83px;
+    column-gap: 130px;
+    &__item {
+    }
+
+    &__link {
+        font-family: "Poppins-Regular", sans-serif;
+        line-height: 35px;
+        color: #544837;
+    }
+}
+.footer-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+
+    &__tel {
+        width: 329px;
+        height: 48px;
+        margin-bottom: 20px;
+        background: #fff;
+        border: 1px solid #bcd0e5;
+        border-radius: 4px;
+        padding: 5px 15px;
+    }
+
+    &__btn {
+        width: 132px;
+        height: 39px;
+        line-height: 39px;
+    }
+}

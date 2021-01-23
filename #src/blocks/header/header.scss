@@ -1,0 +1,21 @@
+// @import "burger";
+
+.header__body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    &__list {
+        display: flex;
+    }
+
+    .menu__item {
+        margin-right: 30px;
+    }
+
+    .menu__link {
+        font-size: 1.4rem;
+    }
+}
